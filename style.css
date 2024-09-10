@@ -1,3 +1,17 @@
 .hidden {
     display: none;
 }
+
+/* Transição suave em inputs e botões */
+input, button {
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.7); /* Destaque no foco */
+}
+
+/* Efeitos de hover nos botões */
+button:hover {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); /* Efeito de brilho no hover */
+}

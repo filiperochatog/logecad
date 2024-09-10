@@ -1,4 +1,3 @@
-
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const toggleText = document.getElementById('toggleText');
@@ -11,8 +10,10 @@ const confirmPassword = document.getElementById('confirmPassword');
 const togglePassword = document.getElementById('togglePassword');
 const toggleRegisterPassword = document.getElementById('toggleRegisterPassword');
 const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+const submitBtn = document.getElementById('submitBtn');
+const loadingSpinner = document.getElementById('loadingSpinner');
 
-// Alternar
+// Alternar entre login e cadastro
 toggleFormButton.addEventListener('click', function() {
     errorMessage.classList.add('hidden'); // Limpa mensagens de erro
     if (loginForm.classList.contains('hidden')) {
@@ -30,56 +31,80 @@ toggleFormButton.addEventListener('click', function() {
     }
 });
 
-// Valid for
+// Validação de formulário
 loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
+    showLoading(true);
     const email = document.getElementById('email').value;
     if (!validateEmail(email)) {
         errorMessage.textContent = 'Por favor, insira um e-mail válido.';
         errorMessage.classList.remove('hidden');
+        showLoading(false);
     } else {
         errorMessage.classList.add('hidden');
-        alert('Login realizado com sucesso!');
+        setTimeout(() => {
+            showLoading(false);
+            alert('Login realizado com sucesso!');
+        }, 1500); // Simulação de delay
     }
 });
 
 registerForm.addEventListener('submit', function(event) {
     event.preventDefault();
+    showLoading(true);
     const email = document.getElementById('registerEmail').value;
     if (!validateEmail(email)) {
         errorMessage.textContent = 'Por favor, insira um e-mail válido.';
         errorMessage.classList.remove('hidden');
+        showLoading(false);
     } else if (registerPassword.value !== confirmPassword.value) {
         errorMessage.textContent = 'As senhas não coincidem.';
         errorMessage.classList.remove('hidden');
+        showLoading(false);
     } else {
         errorMessage.classList.add('hidden');
-        alert('Cadastro realizado com sucesso!');
+        setTimeout(() => {
+            showLoading(false);
+            alert('Cadastro realizado com sucesso!');
+        }, 1500); // Simulação de delay
     }
 });
 
-// validar e-mail
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-}
-
 // Mostrar/Ocultar senha
 togglePassword.addEventListener('click', function() {
-    toggleVisibility(password, togglePassword);
+    toggleVisibility(password, togglePassword, 'eyeIcon');
 });
 
 toggleRegisterPassword.addEventListener('click', function() {
-    toggleVisibility(registerPassword, toggleRegisterPassword);
+    toggleVisibility(registerPassword, toggleRegisterPassword, 'registerEyeIcon');
 });
 
 toggleConfirmPassword.addEventListener('click', function() {
-    toggleVisibility(confirmPassword, toggleConfirmPassword);
+    toggleVisibility(confirmPassword, toggleConfirmPassword, 'confirmEyeIcon');
 });
 
-//  alternar visibilidade de senha
-function toggleVisibility(input, button) {
+// Função para alternar visibilidade de senha
+function toggleVisibility(input, button, iconId) {
     const type = input.type === 'password' ? 'text' : 'password';
     input.type = type;
-    button.textContent = input.type === 'password' ? '👁️' : '🙈';
+    const icon = document.getElementById(iconId);
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+}
+
+// Função para simular loading
+function showLoading(isLoading) {
+    if (isLoading) {
+        submitBtn.classList.add('hidden');
+        loadingSpinner.classList.remove('hidden');
+    } else {
+        submitBtn.classList.remove('hidden');
+        loadingSpinner.classList.add('hidden');
+    }
+}
+
+// Função para validar e-mail
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
 }

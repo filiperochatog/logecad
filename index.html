@@ -5,61 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login e Cadastro</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para ícones -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gradient-to-r from-blue-100 to-indigo-200 h-screen flex items-center justify-center">
+<body class="bg-gradient-to-r from-blue-200 to-indigo-400 h-screen flex items-center justify-center">
 
-    
-    <div class="bg-white p-6 md:p-8 rounded-lg shadow-2xl max-w-md w-full">
+    <!-- Container Principal -->
+    <div class="bg-white p-6 md:p-8 rounded-xl shadow-2xl max-w-md w-full">
         
-        <h2 id="formTitle" class="text-3xl font-extrabold text-center mb-8 text-gray-800">Login</h2>
+        <!-- Título -->
+        <h2 id="formTitle" class="text-3xl font-extrabold text-center mb-8 text-indigo-700">Login</h2>
         
+        <!-- Mensagem de Erro -->
+        <div id="errorMessage" class="text-red-600 text-sm font-semibold text-center mb-4 hidden" aria-live="assertive"></div>
         
-        <div id="errorMessage" class="text-red-500 text-sm mb-4 hidden"></div>
-        
-        <!-- Form Log -->
+        <!-- Formulário de Login -->
         <form id="loginForm" class="space-y-6" aria-label="Formulário de Login">
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
-                <input type="email" id="email" placeholder="Digite seu e-mail" aria-label="Digite seu e-mail" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="email" id="email" placeholder="Digite seu e-mail" aria-label="Digite seu e-mail" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" required>
+                <p id="emailError" class="text-red-500 text-xs hidden mt-1">E-mail inválido</p>
             </div>
             <div class="relative">
                 <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
-                <input type="password" id="password" placeholder="Digite sua senha" aria-label="Digite sua senha" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 px-3 py-2 text-gray-500 focus:outline-none">
-                    👁️
+                <input type="password" id="password" placeholder="Digite sua senha" aria-label="Digite sua senha" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" required>
+                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 px-3 py-2 text-gray-500 hover:text-indigo-600 focus:outline-none transition duration-200">
+                    <i id="eyeIcon" class="fas fa-eye"></i>
                 </button>
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md">Entrar</button>
+            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg">
+                Entrar
+            </button>
+            <div id="loadingSpinner" class="hidden text-center">
+                <i class="fas fa-spinner fa-spin text-indigo-600"></i>
+            </div>
         </form>
 
-        <!-- Form cad-->
+        <!-- Formulário de Cadastro (inicialmente oculto) -->
         <form id="registerForm" class="space-y-6 hidden" aria-label="Formulário de Cadastro">
             <div>
                 <label for="registerEmail" class="block text-sm font-medium text-gray-700">E-mail</label>
-                <input type="email" id="registerEmail" placeholder="Digite seu e-mail" aria-label="Digite seu e-mail para cadastro" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="email" id="registerEmail" placeholder="Digite seu e-mail" aria-label="Digite seu e-mail para cadastro" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" required>
+                <p id="registerEmailError" class="text-red-500 text-xs hidden mt-1">E-mail inválido</p>
             </div>
             <div class="relative">
                 <label for="registerPassword" class="block text-sm font-medium text-gray-700">Senha</label>
-                <input type="password" id="registerPassword" placeholder="Digite sua senha" aria-label="Digite sua senha" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                <button type="button" id="toggleRegisterPassword" class="absolute inset-y-0 right-0 px-3 py-2 text-gray-500 focus:outline-none">
-                    👁️
+                <input type="password" id="registerPassword" placeholder="Digite sua senha" aria-label="Digite sua senha" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" required>
+                <button type="button" id="toggleRegisterPassword" class="absolute inset-y-0 right-0 px-3 py-2 text-gray-500 hover:text-indigo-600 focus:outline-none transition duration-200">
+                    <i id="registerEyeIcon" class="fas fa-eye"></i>
                 </button>
             </div>
             <div class="relative">
                 <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
-                <input type="password" id="confirmPassword" placeholder="Confirme sua senha" aria-label="Confirme sua senha" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                <button type="button" id="toggleConfirmPassword" class="absolute inset-y-0 right-0 px-3 py-2 text-gray-500 focus:outline-none">
-                    👁️
+                <input type="password" id="confirmPassword" placeholder="Confirme sua senha" aria-label="Confirme sua senha" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200" required>
+                <button type="button" id="toggleConfirmPassword" class="absolute inset-y-0 right-0 px-3 py-2 text-gray-500 hover:text-indigo-600 focus:outline-none transition duration-200">
+                    <i id="confirmEyeIcon" class="fas fa-eye"></i>
                 </button>
             </div>
-            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 shadow-md">Cadastrar</button>
+            <button type="submit" class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition duration-300 shadow-lg">Cadastrar</button>
         </form>
 
-        
+        <!-- Alternar entre Login e Cadastro -->
         <p class="text-center mt-6 text-sm text-gray-600">
             <span id="toggleText">Não tem uma conta?</span>
-            <button id="toggleForm" class="text-blue-600 hover:underline focus:outline-none">Cadastre-se</button>
+            <button id="toggleForm" class="text-indigo-600 hover:underline focus:outline-none">Cadastre-se</button>
         </p>
     </div>
 
