@@ -1,4 +1,4 @@
-// Referências aos elementos
+
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const toggleText = document.getElementById('toggleText');
@@ -12,7 +12,7 @@ const togglePassword = document.getElementById('togglePassword');
 const toggleRegisterPassword = document.getElementById('toggleRegisterPassword');
 const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
 
-// Alternar entre login e cadastro
+// Alternar
 toggleFormButton.addEventListener('click', function() {
     errorMessage.classList.add('hidden'); // Limpa mensagens de erro
     if (loginForm.classList.contains('hidden')) {
@@ -30,7 +30,7 @@ toggleFormButton.addEventListener('click', function() {
     }
 });
 
-// Validação de formulário
+// Valid for
 loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('email').value;
@@ -58,7 +58,7 @@ registerForm.addEventListener('submit', function(event) {
     }
 });
 
-// Função para validar e-mail
+// validar e-mail
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
@@ -77,7 +77,7 @@ toggleConfirmPassword.addEventListener('click', function() {
     toggleVisibility(confirmPassword, toggleConfirmPassword);
 });
 
-// Função para alternar visibilidade de senha
+//  alternar visibilidade de senha
 function toggleVisibility(input, button) {
     const type = input.type === 'password' ? 'text' : 'password';
     input.type = type;
